@@ -1,0 +1,22 @@
+{
+    "name": "wtl/command-line-validation",
+    "description": "This package is built on top of the laravel artisan command package. With this additional package you can validate the input data.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wtl\\CommandLineValidation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "JonasGreim",
+            "email": "jonas.greim@wtl.de"
+        },
+        {
+            "name": "eissmann",
+            "email": "steffen.eissmann@wtl.de"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
