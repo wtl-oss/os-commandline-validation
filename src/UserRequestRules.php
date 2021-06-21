@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Wtl\CommandLineValidation\src;
+namespace Wtl\CommandLineValidation;
 
 
 class UserRequestRules extends ConsoleRequest

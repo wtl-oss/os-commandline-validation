@@ -1,6 +1,6 @@
 <?php
 
-namespace Wtl\CommandLineValidation\src;
+namespace Wtl\CommandLineValidation;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;

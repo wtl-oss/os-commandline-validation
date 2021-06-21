@@ -1,6 +1,6 @@
 <?php
 
-namespace Wtl\CommandLineValidation\src;
+namespace Wtl\CommandLineValidation;
 
 use Exception;
 
