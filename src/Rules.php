@@ -4,7 +4,7 @@
 namespace Wtl\CommandLineValidation;
 
 
-class UserRequestRules extends ConsoleRequest
+class Rules extends ConsoleRequest
 {
     public function rules(): array
     {
