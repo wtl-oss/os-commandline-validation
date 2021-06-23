@@ -2,12 +2,12 @@
 
 namespace Wtl\CommandLineValidation;
 
-use Exception;
+use ParseError;
 
 trait GenerateSignatureTrait
 {
     /**
-     * @throws Exception
+     * @throws ParseError
      */
     public function generateSignatureWithShortcuts(array $requestRules, string $commandName): string
     {
@@ -15,7 +15,9 @@ trait GenerateSignatureTrait
         $signatureGenerated = $commandName;
         $modelAttributes = array_keys($requestRules);
 
-        if ((count($modelAttributes) + count($shortcutArray)) > 26) throw new Exception('Model has too many attributes');
+        if ((count($modelAttributes) + count($shortcutArray)) > 26) {
+            throw new ParseError('Model has too many attributes');
+        }
 
         foreach ($modelAttributes as $attribute) {
             $signatureGenerated .= ' {--';

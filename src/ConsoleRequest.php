@@ -21,7 +21,9 @@ abstract class ConsoleRequest
             return true;
         } catch (ValidationException $e) {
             $this->lastErrorMessages = ($e->getMessage() . "\n" . $this->getErrorsFormatted());
-            if ($reportException) throw $e;
+            if ($reportException) {
+                throw $e;
+            }
             return false;
         }
     }
