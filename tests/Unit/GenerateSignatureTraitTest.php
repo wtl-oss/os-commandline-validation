@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class GenerateSignatureTraitTest extends TestCase
 {
-    private $arrayRules;
-    private $commandName;
-    private $generateSignatureTrait;
+    private array $arrayRules;
+    private string $commandName;
+    private object $generateSignatureTrait;
 
     public function setUp() : void
     {
