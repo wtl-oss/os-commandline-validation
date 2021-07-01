@@ -106,14 +106,15 @@ sail php artisan user:create --help
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a package to validate your custom laravel commands.
-With this package you can use the same rule logic as with the normal validation forms.
+This is a package to validate your custom laravel commands. 
 We tried to integrate the project as well as possible into the laravel ecosystem.
+Through that you can use the same rule logic for your validation as with the normal validation forms.
+
 
 
 In laravel you can easily validate user data in forms.
-But there wasn't a standard solution if you want to validate something else without forms.
-We want change that and want to offer a simple solution.
+But there wasn't a standard solution if you want to validate something in the command line without forms.
+We want change that and want to offer a simple solution in this package for this validation process.
 
 
 ### Built With
@@ -131,7 +132,6 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * composer
   ```sh
   composer install
@@ -146,23 +146,46 @@ This is an example of how to list things you need to use the software and how to
    composer require wtl/laravelCommandLineValidation
    ```
 
+or
 
+1. write these lines to your composer.json file
+    ```sh   
+    "require": {
+        "wtl/command-line-validation": "dev-master"
+   }
+    ```
+2. hit 
+     ```sh   
+    composer update
+    ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This package is based on the Laravel Artisan Console.
+You can create a command with this command:
+```sh   
+php artisan make:command YourCostumeCommand
+```
+and run it with this command
+```sh   
+php artisan YourCostumeCommand
+```
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+for more have a look at the documentation https://laravel.com/docs/8.x/artisan
 
 
 
 <!-- CLASS DIAGRAM -->
 ## Class Diagram
 
-Diagram
+Overview over the package:
+
+![](images//classDiagramOverview.jpg)
 
 
+More accurate class diagram:
+![](images//classDiagramAccurately.jpg)
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -182,12 +205,6 @@ Contributions are what make the open source community such an amazing place to b
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
-<!-- CONTACT -->
-## Contact
-
-E-mail:
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
@@ -215,8 +232,4 @@ E-mail:
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/github_username
 
-## This is the introduction <a name="introduction"></a>
-Some introduction text, formatted in heading 2 style
 
-create laravel command
-php artisan make:command SendEmails
