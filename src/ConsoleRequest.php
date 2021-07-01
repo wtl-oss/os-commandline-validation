@@ -4,23 +4,23 @@ namespace Wtl\CommandLineValidation;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Contracts\Validation\Validator as ValidationContract;
 
 abstract class ConsoleRequest
 {
-    protected $validator;
-    protected $lastErrorMessages = "";
+    protected string $lastErrorMessages = "";
 
     /**
      * @throws ValidationException
      */
     public function executeValidation(bool $reportException, array $optionUserInput): bool
     {
+        $validator = $this->createValidator($optionUserInput);
         try {
-            $this->createValidator($optionUserInput);
-            $this->validator->validated();
+            $validator->validated();
             return true;
         } catch (ValidationException $e) {
-            $this->lastErrorMessages = ($e->getMessage() . "\n" . $this->getErrorsFormatted());
+            $this->lastErrorMessages = ($e->getMessage() . "\n" . $this->getErrorsFormatted($validator));
             if ($reportException) {
                 throw $e;
             }
@@ -28,9 +28,9 @@ abstract class ConsoleRequest
         }
     }
 
-    public function createValidator(array $optionsUserInput)
+    public function createValidator(array $optionsUserInput): ValidationContract
     {
-        $this->validator = Validator::make($optionsUserInput, $this->rules(), $this->messages(), $this->customAttributes());
+        return Validator::make($optionsUserInput, $this->rules(), $this->messages(), $this->customAttributes());
     }
 
     public function getLastErrorMessages(): string
@@ -39,17 +39,16 @@ abstract class ConsoleRequest
     }
 
 
-    public function getErrorsFormatted(): string
+    public function getErrorsFormatted(ValidationContract $validator): string
     {
         $errorMessage = "The command failed.\n\n";
-        foreach ($this->validator->errors()->all() as $message) {
+        foreach ($validator->errors()->all() as $message) {
             $errorMessage = $errorMessage . $message . "\n";
         }
         return substr($errorMessage, 0, -1);
     }
 
-    abstract public function rules(): array;
-
+    public abstract function rules(): array;
 
     public function customAttributes(): array
     {

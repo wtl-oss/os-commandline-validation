@@ -217,3 +217,6 @@ E-mail:
 
 ## This is the introduction <a name="introduction"></a>
 Some introduction text, formatted in heading 2 style
+
+create laravel command
+php artisan make:command SendEmails
