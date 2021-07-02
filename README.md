@@ -158,12 +158,9 @@ or
      ```sh   
     composer update
     ```
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
+###Artisan Console Class
 This package is based on the Laravel Artisan Console.
-You can create a command with this command:
+You can create this laravel class with the following command:
 ```sh   
 php artisan make:command YourCostumeCommand
 ```
@@ -177,15 +174,57 @@ for more have a look at the documentation https://laravel.com/docs/8.x/artisan
 
 
 <!-- CLASS DIAGRAM -->
-## Class Diagram
+## Class Diagrams
 
-Overview over the package:
+###Overview over the package:
 
 ![](images//classDiagramOverview.jpg)
 
+This package provides 2 classes: ConsoleRequest and GenerateSignatureTrait
 
-More accurate class diagram:
+You have to create 2 classes: YourArtisanCommand (explained above) and Rules
+
+
+
+###More accurate class diagram:
 ![](images//classDiagramAccurately.jpg)
+
+##How to validate
+
+1. Create a class Rules that extends ConsoleRequest 
+1. Define the abstract method 'rules()' with your own rules and return that array (just like with form requests).
+   https://laravel.com/docs/8.x/validation#creating-form-requests
+1. Inject the class 'Rules' into your handle() method in the class YourArtisanCommand
+   ```sh   
+    public function handle(UserRequestRules $userRequestRules): int {}
+    ```
+1. Use the Rules' method 'executeValidation(bool, array): bool' in your handle() method to validate your data. 
+   1. Set the arguments
+      1. bool $throwException: <br /><br />
+         false: The method returns true if the validation was correct and false if it was incorrect. <br />
+         true: The method returns true if the validation was correct and throws a ValidationException if it was incorrect.
+         <br /><br />
+         (If you want it to be the same as with Form request, use true.)
+      1.  array $optionsCommandLineUserInput: <br /><br />
+          Define your command line input expectations in the signature attribute and call it for example with this method:
+          https://laravel.com/docs/8.x/artisan#options
+         ```sh   
+         $this->options()
+         ```
+
+   1. If the validation fails, the validation error messages will get automatically displayed on the console.
+      
+
+##Generate signatures automatically
+
+use trait -> auto generates out of rules 
+always need 1 rule for every attribute 
+
+-x options gets added
+
+
+
+
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -232,4 +271,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/github_username
 
+Notice:
+have to  create class rules
+-->muss erben
+(ist quasi der Validator) ->kontakt und methodenAusführen
+
+kann mit trait rules synchronisiert werden
 

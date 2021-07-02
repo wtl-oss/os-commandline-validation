@@ -13,7 +13,7 @@ abstract class ConsoleRequest
     /**
      * @throws ValidationException
      */
-    public function executeValidation(bool $reportException, array $optionUserInput): bool
+    public function executeValidation(bool $throwException, array $optionUserInput): bool
     {
         $validator = $this->createValidator($optionUserInput);
         try {
@@ -21,7 +21,7 @@ abstract class ConsoleRequest
             return true;
         } catch (ValidationException $e) {
             $this->lastErrorMessages = ($e->getMessage() . "\n" . $this->getErrorsFormatted($validator));
-            if ($reportException) {
+            if ($throwException) {
                 throw $e;
             }
             return false;
