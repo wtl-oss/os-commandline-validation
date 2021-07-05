@@ -112,7 +112,7 @@ for more have a look at the documentation https://laravel.com/docs/8.x/artisan
 
 
 <!-- CLASS DIAGRAM -->
-## Class Diagrams
+##UML Class Diagrams
 
 ###Overview over the package:
 
@@ -124,7 +124,7 @@ You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteC
 
 
 
-###More accurate class diagram:
+###More accurate UML class diagram:
 ![](images//classDiagramAccurately.jpg)
 
 ##How to validate
@@ -156,7 +156,7 @@ You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteC
 ```sh   
 public function handle(ConcreteValidator $concreteValidator): int
 {
-    if ($concreteValidator->executeValidation(false, $this->options())) {
+    if ($concreteValidator->executeValidation($this->options(), false)) {
 
         //validation correct. Do something with the validated data. (here: $this->options())
 
@@ -176,7 +176,6 @@ public function handle(ConcreteValidator $concreteValidator): int
    ```
 
    1. Tip: If you have already defined rules for your form request, you can synchronize both rules() methods (form request & concreteConsoleValidator) with another trait.
-   1. Switch for boolean 
 
 ##Generate signatures automatically
 
@@ -195,7 +194,7 @@ So you have to create a rule for every input expectation that you want to valida
    class YourArtisanCommand extends Command {
     use GenerateSignatureTrait;
    ```
-1. Set the new signature in the constructor with the trait's method generateSignature(array, string).<br/>
+1. Set the new signature in the constructor with the trait's method generateSignature(array, string, string). <br/>
    The method requires your rules and a command name as parameters.
    ```sh   
    public function __construct(ConcreteConsoleValidator $concreteConsoleValidator)
@@ -206,18 +205,24 @@ So you have to create a rule for every input expectation that you want to valida
    ```
    The parent constructor needs the signature therefore you have to declare the signature beforehand.
 
-
-
-
-// -x options gets added ()
-// löschen ohne immer -x & methode ändern -> User chance geben shortcuts reinzugeben (default Argument)
-
-//throw exceptions default = false ?
-
-
-
-
-
+(3.) The third argument of the method is optional. 
+   You can use it if you want to set input expectations which should not be validated.
+   Write your expectations in the string as if you were writing it in the signature attribute. <br />
+   https://laravel.com/docs/8.x/artisan#defining-input-expectations
+   <br/> <br/>
+   For example you could use it as boolean switch for the the ConcreteConsoleValidator's method 'executeValidation(bool, array): bool'
+   ```sh   
+   $this->signature = $this->generateSignatureWithShortcuts($userRequestRules->rules(), $this->commandName, '{--x|reportException}');
+   ```
+   and in the handle method of your YourArtisanCommand class like this:
+   ```sh
+   $userInputArray = $this->options();
+   $userRequestRules->executeValidation($userInputArray['reportException'], $this->options())
+   ```
+   With this switch you can now decide in the command line whether you want to throw an exception or not.
+   ```sh
+   php artisan commandName --email test@mail.com --age 25 -x
+   ```
 
 <!-- CONTRIBUTING -->
 ## Contributing
