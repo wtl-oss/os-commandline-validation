@@ -1,65 +1,3 @@
-<!--
-#Laravel Command Line Validation
-
-This is a package to validate your custom laravel commands. 
-With this package you can use the same rule logic as with normal validation forms. 
-We tried to integrate the project as well as possible into the laravel ecosystem.
-
-
-In laravel you can easily validate user data in forms. 
-But there wasn't a standard solution if you want to validate something else without forms. 
-We want change that and want to offer a simple solution. 
-
-
-##Getting Started
-
-Require this package with composer.
-
-###Prerequisites
-php version
-
-###Installing
-
-###Usage
-
-
-##Diagrams
-##Acknowledgments
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
-
-
-
-
-Configuring Bash Alias Sail:
-without: ./vendor/bin/sail up
-
-alias sail='bash vendor/bin/sail'
-sail up
-
-usage
-sail php artisan user:create -e ojdaj@gmail.com
-
-best command use without =  (= is displayed by -b=a and space works with both options)
-
-    //{email} == required
-    //{--first_name=} == optional & default value NULL
-    //--f| == shortcut can be used with: -f name
-only use options no arguments
-
-help:
-sail php artisan user:create --help
-
--->
-
-
-
-
-
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -162,11 +100,11 @@ or
 This package is based on the Laravel Artisan Console.
 You can create this laravel class with the following command:
 ```sh   
-php artisan make:command YourCostumeCommand
+php artisan make:command YourArtisanCommand
 ```
 and run it with this command
 ```sh   
-php artisan YourCostumeCommand
+php artisan YourArtisanCommand
 ```
 
 for more have a look at the documentation https://laravel.com/docs/8.x/artisan
@@ -180,9 +118,9 @@ for more have a look at the documentation https://laravel.com/docs/8.x/artisan
 
 ![](images//classDiagramOverview.jpg)
 
-This package provides 2 classes: ConsoleRequest and GenerateSignatureTrait
+This package provides 2 classes: AbstractConsoleValidator and GenerateSignatureTrait
 
-You have to create 2 classes: YourArtisanCommand (explained above) and Rules
+You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteConsoleValidator
 
 
 
@@ -191,14 +129,14 @@ You have to create 2 classes: YourArtisanCommand (explained above) and Rules
 
 ##How to validate
 
-1. Create a class Rules that extends ConsoleRequest 
-1. Define the abstract method 'rules()' with your own rules and return that array (just like with form requests).
+1. Create a class ConcreteConsoleValidator that extends AbstractConsoleValidator 
+1. Define the abstract method 'rules()' with your own rules and return an array (just like with form requests).
    https://laravel.com/docs/8.x/validation#creating-form-requests
-1. Inject the class 'Rules' into your handle() method in the class YourArtisanCommand
+1. Inject the class 'ConcreteConsoleValidator' into your handle() method in the class YourArtisanCommand
    ```sh   
-    public function handle(UserRequestRules $userRequestRules): int {}
+    public function handle(ConcreteConsoleValidator $concreteConsoleValidator): int {}
     ```
-1. Use the Rules' method 'executeValidation(bool, array): bool' in your handle() method to validate your data. 
+1. Use the ConcreteConsoleValidator's method 'executeValidation(bool, array): bool' in your handle() method to validate your data. 
    1. Set the arguments
       1. bool $throwException: <br /><br />
          false: The method returns true if the validation was correct and false if it was incorrect. <br />
@@ -206,21 +144,76 @@ You have to create 2 classes: YourArtisanCommand (explained above) and Rules
          <br /><br />
          (If you want it to be the same as with Form request, use true.)
       1.  array $optionsCommandLineUserInput: <br /><br />
-          Define your command line input expectations in the signature attribute and call it for example with this method:
+          Define your command line input expectations in the signature attribute and call these formatted in an array for example with this method:
           https://laravel.com/docs/8.x/artisan#options
          ```sh   
          $this->options()
          ```
 
-   1. If the validation fails, the validation error messages will get automatically displayed on the console.
+   1. If the validation fails, the validation error messages will get saved as string and can be returned with the ConcreteConsoleValidator's method 'getLastErrorMessages()'.
       
+##Example validation
+```sh   
+public function handle(ConcreteValidator $concreteValidator): int
+{
+    if ($concreteValidator->executeValidation(false, $this->options())) {
+
+        //validation correct. Do something with the validated data. (here: $this->options())
+
+        $this->info('The validation was correct. The command was successful.');
+    } else {
+        $this->error($concreteValidator->getLastErrorMessages());
+    }
+    return 0;
+}
+```
+
+##help/tips
+   1. This command displays how you can use your command.
+   It displays the command description and which input options are available.
+   ```sh 
+   php artisan YourArtisanCommandName --help
+   ```
+
+   1. Tip: If you have already defined rules for your form request, you can synchronize both rules() methods (form request & concreteConsoleValidator) with another trait.
+   1. Switch for boolean 
 
 ##Generate signatures automatically
 
-use trait -> auto generates out of rules 
-always need 1 rule for every attribute 
+Usually you have to declare the input expectations manually in the signature attribute of your YourArtisanCommand class.
+With this package you can create the signature automatically with the help of the trait 'GenerateSignatureTrait'.
 
--x options gets added
+The trait generates the signature from the method 'rules()' of your class 'ConcreteConsoleValidator'.
+The trait method creates for each rule one input expectation in form of an option.
+
+So you have to create a rule for every input expectation that you want to validate in order to use the trait.
+
+###How to generate your signature
+
+1. Use the trait in the class YourArtisanCommand
+   ```sh   
+   class YourArtisanCommand extends Command {
+    use GenerateSignatureTrait;
+   ```
+1. Set the new signature in the constructor with the trait's method generateSignature(array, string).<br/>
+   The method requires your rules and a command name as parameters.
+   ```sh   
+   public function __construct(ConcreteConsoleValidator $concreteConsoleValidator)
+    {
+        $this->signature = $this->generateSignature($concreteConsoleValidator->rules(), 'commandName');
+        parent::__construct();
+    }
+   ```
+   The parent constructor needs the signature therefore you have to declare the signature beforehand.
+
+
+
+
+// -x options gets added ()
+// löschen ohne immer -x & methode ändern -> User chance geben shortcuts reinzugeben (default Argument)
+
+//throw exceptions default = false ?
+
 
 
 
@@ -229,14 +222,14 @@ always need 1 rule for every attribute
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions make the open source community to such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
+1. Fork the project
+1. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+1. Code an amazing feature with tests   
+1. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+1. Push to the branch (`git push origin feature/AmazingFeature`)
+1. Open a pull request
 
 
 <!-- LICENSE -->
@@ -271,10 +264,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/github_username
 
-Notice:
-have to  create class rules
--->muss erben
-(ist quasi der Validator) ->kontakt und methodenAusführen
-
-kann mit trait rules synchronisiert werden
 

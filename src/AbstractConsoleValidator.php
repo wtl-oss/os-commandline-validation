@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator as ValidationContract;
 
-abstract class ConsoleRequest
+abstract class AbstractConsoleValidator
 {
     protected string $lastErrorMessages = "";
 
     /**
      * @throws ValidationException
      */
-    public function executeValidation(bool $throwException, array $optionUserInput): bool
+    public function executeValidation(array $commandLineUserInput, bool $throwException = false): bool
     {
-        $validator = $this->createValidator($optionUserInput);
+        $validator = $this->createValidator($commandLineUserInput);
         try {
             $validator->validated();
             return true;
