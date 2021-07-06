@@ -28,7 +28,7 @@ abstract class AbstractConsoleValidator
         }
     }
 
-    public function createValidator(array $optionsUserInput): ValidationContract
+    protected function createValidator(array $optionsUserInput): ValidationContract
     {
         return Validator::make($optionsUserInput, $this->rules(), $this->messages(), $this->customAttributes());
     }
@@ -39,7 +39,7 @@ abstract class AbstractConsoleValidator
     }
 
 
-    public function getErrorsFormatted(ValidationContract $validator): string
+    protected function getErrorsFormatted(ValidationContract $validator): string
     {
         $errorMessage = "The command failed.\n\n";
         foreach ($validator->errors()->all() as $message) {

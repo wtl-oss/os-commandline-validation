@@ -29,7 +29,7 @@
       </ul>
     </li>
     <li><a href="#UML-class-diagrams">UML Class Diagrams</a></li>
-    <li><a href="#how-to-validate">How to validate</a></li>
+    <li><a href="#how-to-validate">How To Validate</a></li>
     <li><a href="#example-validation">Example Validation</a></li>
     <li><a href="#generate-signatures-automatically">Generate Signatures Automatically</a></li>
     <li><a href="#advices">Advices</a></li>
@@ -240,7 +240,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Credits
 
-* [nice Readme](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md)
-* []()
-* []()
+Big shout out to [Webteam Leipzig](https://wtl.de/) that made the project possible.
 
