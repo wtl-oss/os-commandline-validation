@@ -32,7 +32,7 @@
     <li><a href="#how-to-validate">How to validate</a></li>
     <li><a href="#example-validation">Example Validation</a></li>
     <li><a href="#generate-signatures-automatically">Generate Signatures Automatically</a></li>
-    <li><a href="#acvices">Advices</a></li>
+    <li><a href="#advices">Advices</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#credits">Credits</a></li>

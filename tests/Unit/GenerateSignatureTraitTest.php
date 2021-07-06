@@ -27,11 +27,27 @@ class GenerateSignatureTraitTest extends TestCase
      * @test
      * @covers GenerateSignatureTrait::generateSignature
      */
-    public function generateSignatureWithoutShortcutsWithValidSignature(): void
+    public function generateSignatureWithValidSignature(): void
     {
         $generatedSignatureSolution = 'user:create {--name=} {--email=} {--date_of_birth=} {--place_of_residence=}';
 
-        self::assertEquals($this->mockSignatureTrait->generateSignature($this->arrayRules, $this->commandName), $generatedSignatureSolution);
+        self::assertEquals(
+            $generatedSignatureSolution,
+            $this->mockSignatureTrait->generateSignature($this->arrayRules, $this->commandName)
+        );
     }
 
+    /**
+     * @test
+     * @covers GenerateSignatureTrait::generateSignature
+     */
+    public function generateSignatureWithValidSignatureAndWithAdditionalBooleanSwitch(): void
+    {
+        $generatedSignatureSolution = 'user:create {--name=} {--email=} {--date_of_birth=} {--place_of_residence=}{--x|reportException}';
+
+        self::assertEquals(
+            $generatedSignatureSolution,
+            $this->mockSignatureTrait->generateSignature($this->arrayRules, $this->commandName, '{--x|reportException}')
+        );
+    }
 }

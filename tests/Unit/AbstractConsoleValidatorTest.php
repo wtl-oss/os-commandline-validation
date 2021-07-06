@@ -9,7 +9,7 @@ use Wtl\CommandLineValidation\AbstractConsoleValidator;
 use PHPUnit\Framework\TestCase;
 
 
-class ConsoleRequestTest extends TestCase
+class AbstractConsoleValidatorTest extends TestCase
 {
     private array $userCommandLineInput;
 

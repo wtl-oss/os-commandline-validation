@@ -945,11 +945,11 @@ trait Date
 
             // @property-read int 51 through 53
             case $name === 'weeksInYear':
-                return (int) $this->weeksInYear();
+                return $this->weeksInYear();
 
             // @property-read int 51 through 53
             case $name === 'isoWeeksInYear':
-                return (int) $this->isoWeeksInYear();
+                return $this->isoWeeksInYear();
 
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
@@ -969,7 +969,7 @@ trait Date
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
-                return 1 + \intval($this->rawFormat('z'));
+                return 1 + (int) ($this->rawFormat('z'));
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
@@ -1327,7 +1327,7 @@ trait Date
     {
         $dayOfYear = $this->dayOfYear;
 
-        return \is_null($value) ? $dayOfYear : $this->addDays($value - $dayOfYear);
+        return $value === null ? $dayOfYear : $this->addDays($value - $dayOfYear);
     }
 
     /**
@@ -1339,9 +1339,9 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - \intval($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        $dayOfWeek = ($this->dayOfWeek + 7 - (int) ($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
 
-        return \is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
+        return $value === null ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
 
     /**
@@ -1355,7 +1355,7 @@ trait Date
     {
         $dayOfWeekIso = $this->dayOfWeekIso;
 
-        return \is_null($value) ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
+        return $value === null ? $dayOfWeekIso : $this->addDays($value - $dayOfWeekIso);
     }
 
     /**
@@ -1918,7 +1918,7 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return \strval((string) floor($date->micro / 100000));
+                    return (string) floor($date->micro / 100000);
                 },
                 'SS' => function (CarbonInterface $date) {
                     return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
@@ -2017,15 +2017,15 @@ trait Date
      *
      * @return string
      */
-    public function ordinal(string $key, string $period = null): string
+    public function ordinal(string $key, ?string $period = null): string
     {
         $number = $this->$key;
         $result = $this->translate('ordinal', [
             ':number' => $number,
-            ':period' => $period,
+            ':period' => (string) $period,
         ]);
 
-        return \strval($result === 'ordinal' ? $number : $result);
+        return (string) ($result === 'ordinal' ? $number : $result);
     }
 
     /**
@@ -2088,7 +2088,7 @@ trait Date
      *
      * @return string
      */
-    public function isoFormat(string $format, string $originalFormat = null): string
+    public function isoFormat(string $format, ?string $originalFormat = null): string
     {
         $result = '';
         $length = mb_strlen($format);
@@ -2167,7 +2167,7 @@ trait Date
                 }
 
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
-                $i += mb_strlen("$sequence") - 1;
+                $i += mb_strlen((string) $sequence) - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -2197,7 +2197,7 @@ trait Date
                 'S' => function ($date) {
                     $day = $date->rawFormat('j');
 
-                    return str_replace("$day", '', $date->isoFormat('Do'));
+                    return str_replace((string) $day, '', $date->isoFormat('Do'));
                 },
                 'w' => true,
                 'z' => true,

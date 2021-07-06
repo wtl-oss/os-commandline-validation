@@ -4,7 +4,7 @@ namespace Wtl\CommandLineValidation;
 
 trait GenerateSignatureTrait
 {
-    public function generateSignature(array $rulesArray, string $commandName, string $addAdditonalSignatureAttribute = null): string
+    public function generateSignature(array $rulesArray, string $commandName, string $addAdditonalSignatureAttributes = null): string
     {
         $signatureGenerated = $commandName;
         $modelAttributes = array_keys($rulesArray);
@@ -12,7 +12,7 @@ trait GenerateSignatureTrait
         foreach ($modelAttributes as $attribute) {
             $signatureGenerated .= ' {--' . $attribute . '=}';
         }
-        $signatureGenerated .= $addAdditonalSignatureAttribute;
+        $signatureGenerated .= $addAdditonalSignatureAttributes;
 
         return $signatureGenerated;
     }
