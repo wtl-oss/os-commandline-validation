@@ -137,7 +137,10 @@ You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteC
 
 ## Example validation
 
+class YourArtisanCommand:
 ```sh   
+protected $signature = 'command:name {--name=}{--email=}{--date_of_birth}';
+
 public function handle(ConcreteValidator $concreteValidator): int
 {
     if ($concreteValidator->executeValidation($this->options(), false)) {
@@ -150,6 +153,18 @@ public function handle(ConcreteValidator $concreteValidator): int
     }
     return 0;
 }
+```
+
+class ConcreteConsoleValidator: (extends AbstractConsoleValidator)
+```sh   
+public function rules(): array
+    {
+        return [
+            'name' => ['max:30'],
+            'email' => ['required', 'unique:validations', 'email:rfc,dns'],
+            'date_of_birth' => ['required', 'date_format:d-m-Y', 'before:-21 years'],
+        ];
+    }
 ```
 
 ## Generate signatures automatically
