@@ -11,31 +11,32 @@ use PHPUnit\Framework\TestCase;
 
 class ConsoleRequestTest extends TestCase
 {
-    private array $userInput;
+    private array $userCommandLineInput;
 
     protected function setUp(): void //called before each test
     {
-        $this->userInput = ['title' => 'ms', 'first_name' => 'jonas'];
+        $this->userCommandLineInput = ['title' => 'ms', 'first_name' => 'jonas'];
     }
+
     /**
      * @test
      * @covers AbstractConsoleValidator::rules
      * @dataProvider rulesDataProvider
      */
-    public function rulesCanBeSet(array $rules):void
+    public function rulesCanBeSet(array $rules): void
     {
         $expected = ['ms' => 'max:30', 'first_name' => 'max:40'];
-        $mockConsoleRequest = $this->getMockForAbstractClass(AbstractConsoleValidator::class);
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(AbstractConsoleValidator::class);
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('rules')
             ->willReturn($rules);
-        self::assertEquals($expected, $mockConsoleRequest->rules());
+        self::assertEquals($expected, $mockAbstractConsoleValidator->rules());
     }
 
     public static function rulesDataProvider(): array
     {
         return [
-            [['ms' => 'max:30', 'first_name' => 'max:40']] //1 array zelle= array $rules
+            [['ms' => 'max:30', 'first_name' => 'max:40']]
         ];
     }
 
@@ -44,7 +45,7 @@ class ConsoleRequestTest extends TestCase
      * @covers AbstractConsoleValidator::executeValidation
      * @throws ValidationException
      */
-    public function executeValidationCorrect():void
+    public function executeValidationValidResultWithSwitchedOffException(): void
     {
         $validatorMock = $this->getMockForAbstractClass(
             ValidationContract::class,
@@ -61,7 +62,7 @@ class ConsoleRequestTest extends TestCase
             ->method('validated')
             ->willReturn(['title' => 'ms', 'first_name' => 'jonas']);
 
-        $mockConsoleRequest = $this->getMockForAbstractClass(
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class,
             [],
             '',
@@ -72,12 +73,12 @@ class ConsoleRequestTest extends TestCase
             false
         );
 
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('createValidator')
             ->willReturn($validatorMock);
 
         $this->AssertTrue(
-            $mockConsoleRequest->executeValidation(false, $this->userInput)
+            $mockAbstractConsoleValidator->executeValidation($this->userCommandLineInput, false)
         );
     }
 
@@ -86,7 +87,7 @@ class ConsoleRequestTest extends TestCase
      * @covers AbstractConsoleValidator::executeValidation
      * @throws ValidationException
      */
-    public function executeValidationFalseWithException():void
+    public function executeValidationValidResultWithEnabledException(): void
     {
         $validatorMock = $this->getMockForAbstractClass(
             ValidationContract::class,
@@ -104,7 +105,7 @@ class ConsoleRequestTest extends TestCase
             ->method('validated')
             ->willThrowException(new ValidationException($validatorMock));
 
-        $mockConsoleRequest = $this->getMockForAbstractClass(
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class,
             [],
             '',
@@ -115,27 +116,28 @@ class ConsoleRequestTest extends TestCase
             false
         );
 
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('createValidator')
             ->willReturn($validatorMock);
 
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('getErrorsFormatted')
             ->with($validatorMock)
             ->willReturn('error message');
 
         $this->assertFalse(
-            $mockConsoleRequest->executeValidation(false, $this->userInput)
+            $mockAbstractConsoleValidator->executeValidation($this->userCommandLineInput, false)
         );
     }
+
     /**
      * @test
      * @covers AbstractConsoleValidator::executeValidation
      * @throws ValidationException
      */
-    public function executeValidationWithThrowExceptionEnabled():void
+    public function executeValidationNoValidResultWithEnabledExceptionThrowException(): void
     {
-        $validatorMock = $this->getMockForAbstractClass(
+        $mockLaravelValidator = $this->getMockForAbstractClass(
             ValidationContract::class,
             [],
             '',
@@ -146,14 +148,11 @@ class ConsoleRequestTest extends TestCase
             false
         );
 
-
-        $validatorMock->expects($this->any())
+        $mockLaravelValidator->expects($this->any())
             ->method('validated')
-            ->willThrowException(new ValidationException($validatorMock));
+            ->willThrowException(new ValidationException($mockLaravelValidator));
 
-
-
-        $mockConsoleRequest = $this->getMockForAbstractClass(
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class,
             [],
             '',
@@ -164,31 +163,31 @@ class ConsoleRequestTest extends TestCase
             false
         );
 
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('createValidator')
-            ->willReturn($validatorMock);
+            ->willReturn($mockLaravelValidator);
 
-        $mockConsoleRequest->expects($this->any())
+        $mockAbstractConsoleValidator->expects($this->any())
             ->method('getErrorsFormatted')
-            ->with($validatorMock)
+            ->with($mockLaravelValidator)
             ->willReturn('error message');
 
         $this->expectException(ValidationException::class);
-        $mockConsoleRequest->executeValidation(true, $this->userInput);
+        $mockAbstractConsoleValidator->executeValidation($this->userCommandLineInput, true);
     }
 
     /**
      * @test
      * @covers AbstractConsoleValidator::customAttributes
      */
-    public function customAttributesReturnsEmptyString():void
+    public function customAttributesReturnsEmptyString(): void
     {
-        $mockConsoleRequest = $this->getMockForAbstractClass(
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class
         );
 
         $this->assertEmpty(
-            $mockConsoleRequest->customAttributes()
+            $mockAbstractConsoleValidator->customAttributes()
         );
     }
 
@@ -196,18 +195,45 @@ class ConsoleRequestTest extends TestCase
      * @test
      * @covers AbstractConsoleValidator::messages
      */
-    public function messagesReturnsEmptyString():void
+    public function messagesReturnsEmptyString(): void
     {
-        $mockConsoleRequest = $this->getMockForAbstractClass(
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class
         );
 
         $this->assertEmpty(
-            $mockConsoleRequest->messages()
+            $mockAbstractConsoleValidator->messages()
         );
     }
 
+    /**
+     * @test
+     * @covers AbstractConsoleValidator::getLastErrorMessages
+     */
+    public function getLastErrorMessagesReturnsString(): void
+    {
+        $lastErrorMessage =
+            "The given data was invalid.
+            \nThe command failed.
+            \n
+            \nThe email has already been taken.";
 
+        $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
+            AbstractConsoleValidator::class,
+            [],
+            '',
+            true,
+            true,
+            true,
+            ['getLastErrorMessages'],
+            false
+        );
+        $mockAbstractConsoleValidator->expects($this->any())
+            ->method('getLastErrorMessages')
+            ->willReturn($lastErrorMessage);
+
+        $this->assertEquals($lastErrorMessage, $mockAbstractConsoleValidator->getLastErrorMessages());
+    }
 
 
 }
