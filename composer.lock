@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25d3599ab2ec9adbb94dfe920e510846",
+    "content-hash": "ecf3c47cb4d41872ab4c3da128880a76",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -686,12 +686,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "8d96c66029c93ba4509aa65cf67d994caaaf4a38"
+                "reference": "23553b080fb2dec0b7e395ece5fab4eedefeb6ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8d96c66029c93ba4509aa65cf67d994caaaf4a38",
-                "reference": "8d96c66029c93ba4509aa65cf67d994caaaf4a38",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/23553b080fb2dec0b7e395ece5fab4eedefeb6ec",
+                "reference": "23553b080fb2dec0b7e395ece5fab4eedefeb6ec",
                 "shasum": ""
             },
             "require": {
@@ -772,7 +772,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-05T13:43:33+00:00"
+            "time": "2021-07-07T16:08:20+00:00"
         },
         {
             "name": "psr/container",
@@ -1891,6 +1891,48 @@
                 }
             ],
             "time": "2020-11-10T19:05:51+00:00"
+        },
+        {
+            "name": "jaschilz/php-coverage-badger",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JASchilz/PHPCoverageBadge.git",
+                "reference": "e15013ebfc8560fe2dc54b123c056c18004f8346"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JASchilz/PHPCoverageBadge/zipball/e15013ebfc8560fe2dc54b123c056c18004f8346",
+                "reference": "e15013ebfc8560fe2dc54b123c056c18004f8346",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "bin": [
+                "bin/php-coverage-badger"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joseph Schilz",
+                    "email": "joseph@schilz.org",
+                    "homepage": "https://www.schilz.org"
+                },
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com"
+                }
+            ],
+            "description": "Create a code coverage badge from a PHPUnit Clover XML file.",
+            "homepage": "https://github.com/jaschilz/PhpCoverageBadge",
+            "support": {
+                "source": "https://github.com/JASchilz/PHPCoverageBadge/tree/master"
+            },
+            "time": "2017-07-28T17:49:46+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3924,7 +3966,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jaschilz/php-coverage-badger": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

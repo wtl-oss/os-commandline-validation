@@ -1,3 +1,4 @@
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -54,8 +55,10 @@ package for the command line validation process.
 
 ### Built With
 
-* [PHP 7.3]()
+* [PHP 7.4]()
 * [Laravel 8]()
+
+Should run with laravel 5.x and PHP 7.4 =<
 
 <!-- GETTING STARTED -->
 
@@ -118,20 +121,12 @@ You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteC
 1. Use the ConcreteConsoleValidator's method 'executeValidation(bool, array): bool' in your handle() method to validate
    your data.
     1. Set the arguments
-        1. bool $throwException: <br /><br />
-           false: The method returns true if the validation was correct and false if it was incorrect. <br />
-           true: The method returns true if the validation was correct and throws a ValidationException if it was
-           incorrect.
-           <br /><br />
-           (If you want it to be the same as with Form request, use true.)
-        1. array $optionsCommandLineUserInput: <br /><br />
-           Define your command line input expectations in the signature attribute and call these formatted in an array
-           for example with this method:
-           https://laravel.com/docs/8.x/artisan#options
-           ```sh   
-           $this->options()
-           ```
-
+       
+          Parameter |Type| Argument | Description
+          --- | --- | --- | ---
+          **$throwException** | bool | `true` | The method returns true if the validation was correct and throws a ValidationException if it was incorrect.
+          &nbsp; | bool | `false` | The method returns true if the validation was correct and false if it was incorrect.
+          **$optionsCommandLineUserInput**| array |$this->options()|Define your command line input expectations in the signature attribute and call these formatted in an array for example with this method: https://laravel.com/docs/8.x/artisan#options
     1. If the validation fails, the validation error messages will get saved as string and can be returned with the
        ConcreteConsoleValidator's method 'getLastErrorMessages()'.
 
@@ -195,7 +190,7 @@ So you have to create a rule for every input expectation that you want to valida
    ```
    The parent constructor needs the signature therefore you have to declare the signature beforehand.
 
-(3.) The third argument of the method is optional. You can use it if you want to set input expectations which should not
+3. OPTIONAL: The third argument of the method is optional. You can use it if you want to set input expectations which should not
 be validated. Write your expectations in the string as if you were writing it in the signature attribute. <br />
 https://laravel.com/docs/8.x/artisan#defining-input-expectations
 <br/> <br/>

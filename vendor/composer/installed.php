@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '09efb5b6f642ac11a04e4abf4491f454ac2f33af',
+        'reference' => '3e8ff52511ad8cc4173e4a4f051efc670d520fcb',
         'name' => 'wtl/command-line-validation',
         'dev' => true,
     ),
@@ -120,6 +120,17 @@
             'reference' => 'a40cd9b37ce89e31df0d641a227bc691363126c8',
             'dev_requirement' => false,
         ),
+        'jaschilz/php-coverage-badger' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jaschilz/php-coverage-badger',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => 'e15013ebfc8560fe2dc54b123c056c18004f8346',
+            'dev_requirement' => true,
+        ),
         'myclabs/deep-copy' => array(
             'pretty_version' => '1.x-dev',
             'version' => '1.9999999.9999999.9999999-dev',
@@ -140,7 +151,7 @@
             'aliases' => array(
                 0 => '2.x-dev',
             ),
-            'reference' => '8d96c66029c93ba4509aa65cf67d994caaaf4a38',
+            'reference' => '23553b080fb2dec0b7e395ece5fab4eedefeb6ec',
             'dev_requirement' => false,
         ),
         'nikic/php-parser' => array(
@@ -601,7 +612,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '09efb5b6f642ac11a04e4abf4491f454ac2f33af',
+            'reference' => '3e8ff52511ad8cc4173e4a4f051efc670d520fcb',
             'dev_requirement' => false,
         ),
     ),

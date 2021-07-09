@@ -225,14 +225,11 @@ class AbstractConsoleValidatorTest extends TestCase
             true,
             true,
             true,
-            ['getLastErrorMessages'],
+            [],
             false
         );
-        $mockAbstractConsoleValidator->expects($this->any())
-            ->method('getLastErrorMessages')
-            ->willReturn($lastErrorMessage);
 
-        $this->assertEquals($lastErrorMessage, $mockAbstractConsoleValidator->getLastErrorMessages());
+        $this->assertEquals("", $mockAbstractConsoleValidator->getLastErrorMessages());
     }
 
 

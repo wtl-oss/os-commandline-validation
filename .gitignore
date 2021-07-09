@@ -1,1 +1,5 @@
 /.idea
+/coverage
+/.phpunit.result.cache
+/docker-compose.yml
+/Dockerfile

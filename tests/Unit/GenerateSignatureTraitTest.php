@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use ParseError;
 use Wtl\CommandLineValidation\GenerateSignatureTrait;
 use PHPUnit\Framework\TestCase;
 
