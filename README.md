@@ -1,3 +1,7 @@
+![](.github/coverage.svg)
+
+<!-- ![](https://github.com/webteam-leipzig/os-commandline-validation/blob/coverageBadge/.github/coverage.svg) -->
+
 
 <!-- PROJECT LOGO -->
 <br />
