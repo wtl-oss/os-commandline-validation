@@ -1,3 +1,7 @@
+![](.github/coverage.svg)
+
+<!-- ![](https://github.com/webteam-leipzig/os-commandline-validation/blob/coverageBadge/.github/coverage.svg) -->
+
 
 <!-- PROJECT LOGO -->
 <br />
@@ -9,7 +13,7 @@
 <h2 align="center">Laravel Command Line Validation </h2>
 
 <p align="center">
-    This is a package to validate your custom laravel artisan commands.
+    This is a package to validate your custom Laravel artisan commands.
 </p>
 
 <!-- TABLE OF CONTENTS -->

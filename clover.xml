@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1626080522">
+  <project timestamp="1626080522">
+    <file name="/home/runner/work/os-commandline-validation/os-commandline-validation/src/AbstractConsoleValidator.php">
+      <class name="Wtl\CommandLineValidation\AbstractConsoleValidator" namespace="global">
+        <metrics complexity="9" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="11" elements="22" coveredelements="15"/>
+      </class>
+      <line num="16" type="method" name="executeValidation" visibility="public" complexity="3" crap="3" count="3"/>
+      <line num="18" type="stmt" count="3"/>
+      <line num="20" type="stmt" count="3"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="22" type="stmt" count="2"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="1"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="31" type="method" name="createValidator" visibility="protected" complexity="1" crap="2" count="0"/>
+      <line num="33" type="stmt" count="0"/>
+      <line num="36" type="method" name="getLastErrorMessages" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="38" type="stmt" count="1"/>
+      <line num="42" type="method" name="getErrorsFormatted" visibility="protected" complexity="2" crap="6" count="0"/>
+      <line num="44" type="stmt" count="0"/>
+      <line num="45" type="stmt" count="0"/>
+      <line num="46" type="stmt" count="0"/>
+      <line num="48" type="stmt" count="0"/>
+      <line num="53" type="method" name="customAttributes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="57" type="stmt" count="1"/>
+      <line num="60" type="method" name="messages" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="64" type="stmt" count="1"/>
+      <metrics loc="67" ncloc="64" classes="1" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="11" elements="22" coveredelements="15"/>
+    </file>
+    <file name="/home/runner/work/os-commandline-validation/os-commandline-validation/src/GenerateSignatureTrait.php">
+      <class name="Wtl\CommandLineValidation\GenerateSignatureTrait" namespace="global">
+        <metrics complexity="2" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="7" coveredelements="7"/>
+      </class>
+      <line num="7" type="method" name="generateSignature" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="9" type="stmt" count="2"/>
+      <line num="10" type="stmt" count="2"/>
+      <line num="12" type="stmt" count="2"/>
+      <line num="13" type="stmt" count="2"/>
+      <line num="15" type="stmt" count="2"/>
+      <line num="17" type="stmt" count="2"/>
+      <metrics loc="19" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="7" coveredelements="7"/>
+    </file>
+    <metrics files="2" loc="86" ncloc="83" classes="2" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="17" elements="29" coveredelements="22"/>
+  </project>
+</coverage>
