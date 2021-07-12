@@ -9,7 +9,7 @@
 <h2 align="center">Laravel Command Line Validation </h2>
 
 <p align="center">
-    This is a package to validate your custom laravel artisan commands.
+    This is a package to validate your custom Laravel artisan commands.
 </p>
 
 <!-- TABLE OF CONTENTS -->
