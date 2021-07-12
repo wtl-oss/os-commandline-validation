@@ -28,8 +28,7 @@ jobs:
       - name: Install dependencies
         run: composer install
       - name: Run tests
-      run: |
-        vendor/bin/phpunit --coverage-clover clover.xml
+        run: vendor/bin/phpunit --coverage-clover clover.xml
         
       - name: phpunit-coverage-badge
         # You may pin to the exact commit or the version.
