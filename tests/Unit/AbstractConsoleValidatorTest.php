@@ -58,9 +58,11 @@ class AbstractConsoleValidatorTest extends TestCase
             false
         );
 
+        $validated = $this->userCommandLineInput;
+
         $validatorMock->expects($this->any())
             ->method('validated')
-            ->willReturn(['title' => 'ms', 'first_name' => 'jonas']);
+            ->willReturn($validated);
 
         $mockAbstractConsoleValidator = $this->getMockForAbstractClass(
             AbstractConsoleValidator::class,
@@ -77,7 +79,8 @@ class AbstractConsoleValidatorTest extends TestCase
             ->method('createValidator')
             ->willReturn($validatorMock);
 
-        $this->AssertTrue(
+        self::assertEquals(
+            $validated,
             $mockAbstractConsoleValidator->executeValidation($this->userCommandLineInput, false)
         );
     }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Wtl\CommandLineValidation;
 
@@ -13,12 +14,11 @@ abstract class AbstractConsoleValidator
     /**
      * @throws ValidationException
      */
-    public function executeValidation(array $commandLineUserInput, bool $throwException = false): bool
+    public function executeValidation(array $commandLineUserInput, bool $throwException = false)
     {
         $validator = $this->createValidator($commandLineUserInput);
         try {
-            $validator->validated();
-            return true;
+            return $validator->validated();
         } catch (ValidationException $e) {
             $this->lastErrorMessages = ($e->getMessage() . "\n" . $this->getErrorsFormatted($validator));
             if ($throwException) {

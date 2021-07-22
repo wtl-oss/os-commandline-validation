@@ -25,8 +25,9 @@
             "email": "steffen.eissmann@wtl.de"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
+        "php": "^7.4|^8.0",
         "illuminate/support": "^8.0",
         "illuminate/validation": "^8.48.1"
     },
