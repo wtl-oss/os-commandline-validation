@@ -76,7 +76,7 @@ To get a local copy up and running, follow these simple steps.
 
 2. Install the Composer package
    ```sh
-   composer require wtl/laravelCommandLineValidation
+   composer require wtl/command-line-validation
    ```
 
 ### Artisan Console Class
