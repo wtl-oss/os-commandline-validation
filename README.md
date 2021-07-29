@@ -142,9 +142,12 @@ protected $signature = 'command:name {--name=}{--email=}{--date_of_birth}';
 
 public function handle(ConcreteValidator $concreteValidator): int
 {    
-    $validatedData = $concreteValidator->executeValidation($this->options(), false))
+    $validatedData = $concreteValidator->executeValidation($this->options(), false);
     if($validatedData==false){
         $this->error($concreteValidator->getLastErrorMessages());
+    }
+    else{
+        $this->info('The validation was correct.');
     }
     return 0;
 }
@@ -157,7 +160,7 @@ public function rules(): array
         return [
             'name' => ['max:30'],
             'email' => ['required', 'unique:validations', 'email:rfc,dns'],
-            'date_of_birth' => ['required', 'date_format:d-m-Y', 'before:-21 years'],
+            'date_of_birth' => ['required', 'date_format:d-m-Y', 'before:-21 years']
         ];
     }
 ```
@@ -205,7 +208,7 @@ array): bool'
 
    ```sh
    $userInputArray = $this->options();
-   $userRequestRules->executeValidation($userInputArray['reportException'], $this->options())
+   $userRequestRules->executeValidation($userInputArray['reportException'], $this->options());
    ```
 
     With this switch you can now decide in the command line whether you want to throw an exception or not.
