@@ -128,8 +128,8 @@ You have to create 2 classes: YourArtisanCommand (explained above) and ConcreteC
        
           Parameter |Type| Argument | Description
           --- | --- | --- | ---
-          **$throwException** | bool | `true` | The method returns true if the validation was correct and throws a ValidationException if it was incorrect.
-          &nbsp; | bool | `false` | The method returns true if the validation was correct and false if it was incorrect.
+          **$throwException** | bool | `true` | The method returns the validated data in an array if the validation was correct and throws a ValidationException if it was incorrect.
+          &nbsp; | bool | `false` | The method returns the validated data in an array if the validation was correct and false if it was incorrect.
           **$optionsCommandLineUserInput**| array |$this->options()|Define your command line input expectations in the signature attribute and call these formatted in an array for example with this method: https://laravel.com/docs/8.x/artisan#options
     1. If the validation fails, the validation error messages will get saved as string and can be returned with the
        ConcreteConsoleValidator's method 'getLastErrorMessages()'.
@@ -141,13 +141,9 @@ class YourArtisanCommand:
 protected $signature = 'command:name {--name=}{--email=}{--date_of_birth}';
 
 public function handle(ConcreteValidator $concreteValidator): int
-{
-    if ($concreteValidator->executeValidation($this->options(), false)) {
-
-        //validation correct. Do something with the validated data. (here: $this->options())
-
-        $this->info('The validation was correct. The command was successful.');
-    } else {
+{    
+    $validatedData = $concreteValidator->executeValidation($this->options(), false))
+    if($validatedData==false){
         $this->error($concreteValidator->getLastErrorMessages());
     }
     return 0;
