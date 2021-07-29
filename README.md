@@ -201,14 +201,14 @@ array): bool'
    $this->signature = $this->generateSignatureWithShortcuts($userRequestRules->rules(), $this->commandName, '{--x|reportException}');
    ```
 
-and in the handle method of your YourArtisanCommand class like this:
+    and in the handle method of your YourArtisanCommand class like this:
 
    ```sh
    $userInputArray = $this->options();
    $userRequestRules->executeValidation($userInputArray['reportException'], $this->options())
    ```
 
-With this switch you can now decide in the command line whether you want to throw an exception or not.
+    With this switch you can now decide in the command line whether you want to throw an exception or not.
 
    ```sh
    php artisan commandName --email test@mail.com --age 25 -x
