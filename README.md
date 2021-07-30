@@ -201,7 +201,7 @@ For example you could use it as boolean switch for the the ConcreteConsoleValida
 array): bool'
 
    ```sh   
-   $this->signature = $this->generateSignatureWithShortcuts($userRequestRules->rules(), $this->commandName, '{--x|reportException}');
+   $this->signature = $this->generateSignature($userRequestRules->rules(), $this->commandName, '{--x|reportException}');
    ```
 
     and in the handle method of your YourArtisanCommand class like this:
