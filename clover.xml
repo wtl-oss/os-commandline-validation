@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1628165709">
-  <project timestamp="1628165709">
+<coverage generated="1634900703">
+  <project timestamp="1634900703">
     <file name="/home/runner/work/os-commandline-validation/os-commandline-validation/src/AbstractConsoleValidator.php">
       <class name="Wtl\CommandLineValidation\AbstractConsoleValidator" namespace="global">
         <metrics complexity="9" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="10" elements="21" coveredelements="14"/>
