@@ -54,7 +54,7 @@ This is a package to validate your custom laravel commands. We tried to integrat
 the laravel ecosystem. So that you can use the same rule logic for your validation as with the normal validation forms.
 
 In laravel you can easily validate user data in forms. But there wasn't a standard solution if you want to validate
-something in the command line without requests. We want change that and want to offer a simple solution with this
+something in the command line without requests. We want to change that and want to offer a simple solution with this
 package for the command line validation process.
 
 ### Built With
